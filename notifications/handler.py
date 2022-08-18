@@ -1,23 +1,27 @@
 import json
 import os
+from dotenv import load_dotenv
 import requests
 # from urllib2 import Request, urlopen, URLError, HTTPError
 # Read environment variables
+load_dotenv()
 SLACK_WEBHOOK_URL = os.environ['SLACK_WEBHOOK_URL']
-#https://hooks.slack.com/services/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' my local testing hook
 SLACK_CHANNEL = os.environ['SLACK_CHANNEL']
-# 'notifications'
 SLACK_USER = os.environ['SLACK_USER']
-# 'caleb.kinsella'
 
 def lambda_handler(event, context):
-    # Read message posted on SNS Topic
 #     message = json.loads(event['Records'][0]['Sns']['Message'])
 #     print(event)
     print(event["detail"]["state"])
-    message = f"Deployment pipeline status: {event['detail']['state']}"
+    message = ""
     codepipeline_url = f"https://{event['region']}.console.aws.amazon.com/codesuite/codepipeline/pipelines/{event['detail']['pipeline']}/view?region={event['region']}"
-# Construct a slack message
+
+    if event["detail"]["state"] == "SUCCEEDED":
+            message = f"-------------------------------\nCodePipeline for: {event['detail']['pipeline']} \n Time: {event['time']} \n Status: {event['detail']['state']} :white_check_mark: \n------------------------------- "
+
+    if event["detail"]["state"] == "FAILED":
+            message = f"-------------------------------\nCodePipeline for: {event['detail']['pipeline']} \n Time: {event['time']} \n Status: {event['detail']['state']} :x: \n-------------------------------"
+
     slack_message = {
         'channel': SLACK_CHANNEL,
         'username': SLACK_USER,
@@ -33,7 +37,7 @@ def lambda_handler(event, context):
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "View Cloudwatch Logs here (Permissions required)."
+                    "text": "View CodePipeline here (AWS Access required)."
                 },
                 "accessory": {
                     "type": "button",
@@ -63,7 +67,7 @@ def lambda_handler(event, context):
     except Exception as error:
         print(error)
 
-# Local testing
+# # Local testing
 # event = {
 #             "version": "0",
 #             "id": "01234567-EXAMPLE",
@@ -78,15 +82,10 @@ def lambda_handler(event, context):
 #             "detail": {
 #                 "pipeline": "myPipeline",
 #                 "execution-id": "12345678-1234-5678-abcd-12345678abcd",
-#                 "state": "SUCCEEDED",
+#                 "state": "FAILED",
 #                 "version": 3
 #             }
 #         }
 #
 # lambda_handler(event, "")
-
-
-# notifications is migrate is sueccesfull
-
-# notifications is BUILD is sueccesfull FOR s3_FRONTEND
 
