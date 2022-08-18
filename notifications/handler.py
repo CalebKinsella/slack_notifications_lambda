@@ -3,9 +3,12 @@ import os
 import requests
 # from urllib2 import Request, urlopen, URLError, HTTPError
 # Read environment variables
-SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'
-SLACK_CHANNEL = 'notifications'
-SLACK_USER = 'caleb.kinsella'
+SLACK_WEBHOOK_URL = os.environ['SLACK_WEBHOOK_URL']
+#https://hooks.slack.com/services/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' my local testing hook
+SLACK_CHANNEL = os.environ['SLACK_CHANNEL']
+# 'notifications'
+SLACK_USER = os.environ['SLACK_USER']
+# 'caleb.kinsella'
 
 def lambda_handler(event, context):
     # Read message posted on SNS Topic
