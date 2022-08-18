@@ -16,3 +16,12 @@ module "lambda_function" {
     Name = "terraform managed notifications"
   }
 }
+
+resource "aws_lambda_permission" "allow_cloudwatch" {
+  statement_id  = "AllowExecutionFromCloudWatch-${var.environment}"
+  action        = "lambda:InvokeFunction"
+  function_name = module.lambda_function.lambda_function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = "arn:aws:events:${var.region}:${data.aws_caller_identity.current.account_id}:rule/Codepipeline-${var.appname}-${var.environment}"
+#  qualifier     = aws_lambda_alias.test_alias.name
+}
