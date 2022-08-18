@@ -60,26 +60,27 @@ def lambda_handler(event, context):
     except Exception as error:
         print(error)
 
-event = {
-            "version": "0",
-            "id": "01234567-EXAMPLE",
-            "detail-type": "CodePipeline Pipeline Execution State Change",
-            "source": "aws.codepipeline",
-            "account": "123456789012",
-            "time": "2020-01-24T22:03:44Z",
-            "region": "us-east-1",
-            "resources": [
-                "arn:aws:codepipeline:us-east-1:123456789012:myPipeline"
-            ],
-            "detail": {
-                "pipeline": "myPipeline",
-                "execution-id": "12345678-1234-5678-abcd-12345678abcd",
-                "state": "SUCCEEDED",
-                "version": 3
-            }
-        }
-
-lambda_handler(event, "")
+# Local testing
+# event = {
+#             "version": "0",
+#             "id": "01234567-EXAMPLE",
+#             "detail-type": "CodePipeline Pipeline Execution State Change",
+#             "source": "aws.codepipeline",
+#             "account": "123456789012",
+#             "time": "2020-01-24T22:03:44Z",
+#             "region": "us-east-1",
+#             "resources": [
+#                 "arn:aws:codepipeline:us-east-1:123456789012:myPipeline"
+#             ],
+#             "detail": {
+#                 "pipeline": "myPipeline",
+#                 "execution-id": "12345678-1234-5678-abcd-12345678abcd",
+#                 "state": "SUCCEEDED",
+#                 "version": 3
+#             }
+#         }
+#
+# lambda_handler(event, "")
 
 
 # notifications is migrate is sueccesfull
