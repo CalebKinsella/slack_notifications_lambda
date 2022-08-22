@@ -82,7 +82,7 @@ def lambda_handler(event, context):
 #             "detail": {
 #                 "pipeline": "myPipeline",
 #                 "execution-id": "12345678-1234-5678-abcd-12345678abcd",
-#                 "state": "FAILED",
+#                 "state": "SUCCEEDED",
 #                 "version": 3
 #             }
 #         }
