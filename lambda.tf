@@ -2,7 +2,7 @@ module "lambda_function" {
   source = "terraform-aws-modules/lambda/aws"
 
   function_name = "notifications-${var.environment}"
-  description   = "My awesome lambda function"
+  description   = "Lamba for AWS Slack notifications."
   handler       = "handler.lambda_handler"
   runtime       = "python3.8"
 
