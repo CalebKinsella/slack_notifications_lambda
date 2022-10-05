@@ -26,7 +26,7 @@ resource "aws_lambda_permission" "allow_cloudwatch" {
   #  qualifier     = aws_lambda_alias.test_alias.name
 }
 
-resource "aws_lambda_permission" "allow_cloudwatch" {
+resource "aws_lambda_permission" "allow_cloudwatch_s3_frontend" {
   count         = var.deploy_s3_frontend_event_bridge == true ? 1 : 0
   statement_id  = "AllowExecutionFromCloudWatch-${var.environment}_s3_frontend"
   action        = "lambda:InvokeFunction"
